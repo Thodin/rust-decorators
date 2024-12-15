@@ -7,6 +7,10 @@ use unit::{Attack, Targetable, Unit};
 pub mod attacks;
 pub mod unit;
 
+// Alternative to the decorator pattern: Explicit implementations in structs
+// - either one struct that does it all -> spaghetti code
+// - or a struct for each combination -> combinatoric explosion of number of structs
+
 fn main() {
     let player_base_attack: Box<dyn Attack> = Box::new(PhysicalAttack { damage: 15 });
     let player_execute_attack: Box<dyn Attack> = Box::new(Execute::new(30, player_base_attack));
