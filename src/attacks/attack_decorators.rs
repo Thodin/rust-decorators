@@ -1,12 +1,12 @@
 use crate::unit::Attack;
 
 pub struct MultistrikeDecorator {
-    num_strikes: i32,
+    num_strikes: u8,
     wrapped_attack: Box<dyn Attack>,
 }
 
 impl MultistrikeDecorator {
-    pub fn new(num_strikes: i32, attack_to_wrap: Box<dyn Attack>) -> Self {
+    pub fn new(num_strikes: u8, attack_to_wrap: Box<dyn Attack>) -> Self {
         MultistrikeDecorator {
             num_strikes,
             wrapped_attack: attack_to_wrap,

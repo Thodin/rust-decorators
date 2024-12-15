@@ -14,7 +14,7 @@ fn main() {
 
     let enemy_base_attack: Box<dyn Attack> = Box::new(PhysicalAttack { damage: 10 });
     let enemy_multistrike_attack: Box<dyn Attack> =
-        Box::new(MultistrikeDecorator::new(3, enemy_base_attack));
+        Box::new(MultistrikeDecorator::new(3_u8, enemy_base_attack));
     let mut enemy = Unit::new("Enemy".into(), 70, enemy_multistrike_attack);
 
     while player.health() > 0 && enemy.health() > 0 {
