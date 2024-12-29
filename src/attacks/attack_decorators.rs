@@ -22,21 +22,21 @@ impl Attack for MultistrikeDecorator {
     }
 }
 
-pub struct Execute {
+pub struct ExecuteDecorator {
     health_threshold: i32,
     wrapped_attack: Box<dyn Attack>,
 }
 
-impl Execute {
+impl ExecuteDecorator {
     pub fn new(health_threshold: i32, attack_to_wrap: Box<dyn Attack>) -> Self {
-        Execute {
+        ExecuteDecorator {
             health_threshold,
             wrapped_attack: attack_to_wrap,
         }
     }
 }
 
-impl Attack for Execute {
+impl Attack for ExecuteDecorator {
     fn attack(&self, target: &mut dyn crate::unit::Targetable) {
         if target.health() < self.health_threshold {
             println!("Executing {} ...", target.name());
