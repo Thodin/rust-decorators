@@ -15,7 +15,9 @@ fn main() {
     let player_base_attack: Box<dyn Attack> = Box::new(PhysicalAttack { damage: 15 });
     let player_execute_attack: Box<dyn Attack> =
         Box::new(ExecuteDecorator::new(30, player_base_attack));
-    let mut player = Unit::new("Player".into(), 100, player_execute_attack);
+    let player_multistrike_execute_attack: Box<dyn Attack> =
+        Box::new(MultistrikeDecorator::new(2, player_execute_attack));
+    let mut player = Unit::new("Player".into(), 100, player_multistrike_execute_attack);
 
     let enemy_base_attack: Box<dyn Attack> = Box::new(PhysicalAttack { damage: 10 });
     let enemy_multistrike_attack: Box<dyn Attack> =
