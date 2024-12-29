@@ -1,5 +1,5 @@
 pub trait Attack {
-    fn attack(&self, target: &mut dyn Targetable);
+    fn attack<Target: Targetable>(&self, target: &mut Target);
 }
 
 pub trait Targetable {
@@ -8,14 +8,14 @@ pub trait Targetable {
     fn name(&self) -> &str;
 }
 
-pub struct Unit {
+pub struct Unit<T: Attack> {
     name: String,
     health: i32,
-    attack_ability: Box<dyn Attack>,
+    attack_ability: T,
 }
 
-impl Unit {
-    pub fn new(name: String, health: i32, attack: Box<dyn Attack>) -> Unit {
+impl<T: Attack> Unit<T> {
+    pub fn new(name: String, health: i32, attack: T) -> Unit<T> {
         Unit {
             name,
             health,
@@ -23,12 +23,12 @@ impl Unit {
         }
     }
 
-    pub fn attack_target(&self, target: &mut dyn Targetable) {
+    pub fn attack_target<Target: Targetable>(&self, target: &mut Target) {
         self.attack_ability.attack(target);
     }
 }
 
-impl Targetable for Unit {
+impl<T: Attack> Targetable for Unit<T> {
     fn take_damage(&mut self, damage: i32) {
         if damage > 0 {
             println!("{} takes {} damage.", self.name, damage);
